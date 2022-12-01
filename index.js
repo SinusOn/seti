@@ -1,9 +1,10 @@
-const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const PORT = 3000;
 
 app.use(express.static(`${__dirname}/static`));
 
@@ -20,10 +21,19 @@ app.get("/error", (req, res) => {
   fs.createReadStream("static/error.html").pipe(res);
 });
 
-http.createServer({}, app).listen(3000, () => {
-  console.log("Server started");
-});
+https
+  .createServer(
+    {
+      key: fs.readFileSync(__dirname + "/cert/key.pem"),
+      cert: fs.readFileSync(__dirname + "/cert/cert.pem"),
+    },
+    app
+  )
+  .listen(PORT, () => {
+    console.log(`Server started: https://localhost:${PORT}`);
+  });
 
+//
 let email = "",
   pass = "",
   tema = "",
@@ -39,10 +49,10 @@ app.post("/sendmail", (req, res) => {
   dist = req.body.dist;
 
   //проверка данных
-  if (!req.body.email) return res.end("Email empty");
-  if (!req.body.pass) return res.end("Pass empty");
-  if (req.body.mail == "") return res.end("Text empty");
-  if (!req.body.dist) return res.end("Email destination empty");
+  if (!email) return res.end("Email empty");
+  if (!pass) return res.end("Pass empty");
+  if (!mail) return res.end("Text empty");
+  if (!dist) return res.end("Email destination empty");
   console.log("Данные получены");
   console.log(`мыло источника ${email}; пароль ист${pass};
   тема письма ${tema}; само письмо ${mail}; кому отправлено ${dist}`);
@@ -69,11 +79,11 @@ app.post("/sendmail", (req, res) => {
   transporter.sendMail(mailOptions, (err) => {
     if (err) {
       console.log("Error");
-      // res.sendStatus(400);
-      // res.redirect("/index.html");
-      res.status(400).redirect("http://localhost:3000/error");
+      res.status(400).redirect(`https://localhost:${PORT}/error`);
     } else {
-      res.redirect("http://localhost:3000");
+      res.redirect(`https://localhost:${PORT}`);
     }
   });
+  (email = ""), (pass = ""), (tema = ""), (mail = ""), (dist = "");
+  console.log("конец");
 });
