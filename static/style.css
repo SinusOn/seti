@@ -1,0 +1,66 @@
+body {
+  box-sizing: border-box;
+  background-color: #f1edfc;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background-color: #c8c4d3;
+  height: 80px;
+  box-shadow: rgb(104 90 112) 0px 2px 10px 1px;
+}
+.container {
+  margin: 0 auto 0 auto;
+  width: 90%;
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+img {
+  height: 55px;
+  cursor: pointer;
+}
+
+.mess {
+  margin: 30px auto 50px auto;
+  box-shadow: 0 1px 2px #6d6161;
+  padding-top: 40px;
+  max-width: 420px;
+  min-width: 380px;
+  padding-bottom: 30px;
+}
+form {
+  width: 80%;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+input {
+  height: 25px;
+  margin-bottom: 30px;
+}
+textarea {
+  resize: none;
+  height: 190px;
+  margin-bottom: 30px;
+}
+.btnmail {
+  box-shadow: 0 1px 2px #6d6161;
+  background-color: #867db3;
+  color: aliceblue;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 30px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.konv {
+  display: block;
+  margin: 0 auto 30px auto;
+  cursor: auto;
+}
