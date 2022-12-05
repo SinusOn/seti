@@ -1,4 +1,4 @@
-//отправка
+//отправка запроса на сервер
 const form = document.querySelector("form");
 const xhr = new XMLHttpRequest();
 let fd = new FormData([form]);

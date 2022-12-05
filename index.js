@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-// сервер
+//
 
 app.get("/", (req, res) => {
   fs.createReadStream("./index.html").pipe(res);
@@ -44,18 +44,18 @@ app.post("/sendmail", (req, res) => {
   //прием данных
   email = req.body.email;
   pass = req.body.pass;
-  tema = req.body.tema;
+  theme = req.body.theme;
   mail = req.body.text;
   dist = req.body.dist;
 
   //проверка данных
-  if (!email) return res.end("Email empty");
-  if (!pass) return res.end("Pass empty");
-  if (!mail) return res.end("Text empty");
+  if (!email) return res.end("Your Email empty");
+  if (!pass) return res.end("Your password empty");
+  // if (!mail) return res.end("Text message empty");
+
+  if (!mail && !theme) return res.end("Theme or text message empty");
   if (!dist) return res.end("Email destination empty");
   console.log("Данные получены");
-  console.log(`мыло источника ${email}; пароль ист${pass};
-  тема письма ${tema}; само письмо ${mail}; кому отправлено ${dist}`);
 
   // отправка почты
 
@@ -72,7 +72,7 @@ app.post("/sendmail", (req, res) => {
   const mailOptions = {
     from: email,
     to: dist,
-    subject: tema,
+    subject: theme,
     text: mail,
   };
 
@@ -84,6 +84,5 @@ app.post("/sendmail", (req, res) => {
       res.redirect(`https://localhost:${PORT}`);
     }
   });
-  (email = ""), (pass = ""), (tema = ""), (mail = ""), (dist = "");
-  console.log("конец");
+  (email = ""), (pass = ""), (theme = ""), (mail = ""), (dist = "");
 });
