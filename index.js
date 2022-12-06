@@ -36,7 +36,7 @@ https
 //
 let email = "",
   pass = "",
-  tema = "",
+  theme = "",
   mail = "",
   dist = "";
 
@@ -51,8 +51,6 @@ app.post("/sendmail", (req, res) => {
   //проверка данных
   if (!email) return res.end("Your Email empty");
   if (!pass) return res.end("Your password empty");
-  // if (!mail) return res.end("Text message empty");
-
   if (!mail && !theme) return res.end("Theme or text message empty");
   if (!dist) return res.end("Email destination empty");
   console.log("Данные получены");
@@ -79,7 +77,6 @@ app.post("/sendmail", (req, res) => {
   transporter.sendMail(mailOptions, (err) => {
     if (err) {
       console.log("Error");
-      res.status(400).redirect(`https://localhost:${PORT}/error`);
     } else {
       res.redirect(`https://localhost:${PORT}`);
     }
